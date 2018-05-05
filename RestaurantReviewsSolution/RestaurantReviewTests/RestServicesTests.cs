@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Moq;
 using RestaurantReviewsModels;
 using Repository;
+using System.Text.RegularExpressions;
 
 namespace BusinessLogic.Tests
 {
@@ -63,18 +64,19 @@ namespace BusinessLogic.Tests
         public void SearchAllTest()
         {
             var service = new RestServices(MockRepo.Object);
-            List<Restaurant> checkList = service.SearchAll("fakeRest");
-            foreach(Restaurant x in checkList)
-            {
-                Console.WriteLine(x.restName);
-            }
-            Assert.AreEqual(checkList[0],"fakeRest");
+            Restaurant testaurant = new Restaurant(); testaurant.ID = 0; testaurant.restName = "fakeRestName"; testaurant.city = "fakeCity"; testaurant.latitude = "fake"; testaurant.longitude = "fake"; testaurant.locality = "land o fakes"; testaurant.ID = 0; testaurant.restAddress = "fakeAddress"; testaurant.cuisines = "fakeCuisine"; testaurant.zipcode = "12345";
+            service.AddRest(testaurant);
+            List<Restaurant> checkList = service.SearchAll("fakeRestName");
+            CollectionAssert.AreEqual(checkList, MockRepo.Object.GetAllRestaurants().Where(x => Regex.IsMatch(x.restName, "fakeRestName")).ToList());
         }
 
         [TestMethod()]
         public void SortRestaurantsTest()
         {
-            Assert.Fail();
+            var service = new RestServices(MockRepo.Object);
+            var checkList = service.SortRestaurants("name");
+
+            CollectionAssert.AreEqual(checkList, MockRepo.Object.GetAllRestaurants().OrderBy(x => x.restName).ToList());
         }
 
         [TestMethod()]
@@ -91,7 +93,7 @@ namespace BusinessLogic.Tests
         }
 
         [TestMethod()]
-        public void TopThreeRestsTest()
+        public void TopThreeRestsTest() //rewrite verification for this test later
         {
             var service = new RestServices(MockRepo.Object);
             service.TopThreeRests();
@@ -101,7 +103,12 @@ namespace BusinessLogic.Tests
         [TestMethod()]
         public void UpdateRestTest()
         {
-            Assert.Fail();
+            var service = new RestServices(MockRepo.Object);
+            Restaurant testaurant = new Restaurant(); testaurant.ID = 0; testaurant.restName = "fakeRestName"; testaurant.city = "fakeCity"; testaurant.latitude = "fake"; testaurant.longitude = "fake"; testaurant.locality = "land o fakes"; testaurant.ID = 0; testaurant.restAddress = "fakeAddress"; testaurant.cuisines = "fakeCuisine"; testaurant.zipcode = "12345";
+            service.AddRest(testaurant);
+            testaurant.city = "fakeLandCity";
+            service.UpdateRest(testaurant);
+            MockRepo.Verify(m => m.ModifyRestaurant(It.IsAny<Restaurant>()), Times.Once);
         }
     }
 }

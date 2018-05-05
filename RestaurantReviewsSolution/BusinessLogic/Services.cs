@@ -36,9 +36,9 @@ namespace BusinessLogic
             return _restaurantRepo.GetById(id);
         }
 
-        public List<Restaurant> SearchAll(string searchMeth)
+        public List<Restaurant> SearchAll(string searchName)
         {
-            IEnumerable<Restaurant> checkList = _restaurantRepo.GetAllRestaurants().Where(x => Regex.IsMatch(x.restName,searchMeth));
+            IEnumerable<Restaurant> checkList = _restaurantRepo.GetAllRestaurants().Where(x => Regex.IsMatch(x.restName,searchName));
             return checkList.ToList();
         }
 
@@ -66,7 +66,17 @@ namespace BusinessLogic
 
         public double getAverageRating(Restaurant rest)
         {
-            double averageRating = Math.Round(rest.Reviews.Select(y => (y.rating.HasValue ? y.rating.Value : 0)).Average(), 2);
+            double averageRating;
+            try
+            {
+                averageRating = Math.Round(rest.Reviews.Select(y => (y.rating.HasValue ? y.rating.Value : 0)).Average(), 2);
+            }
+            catch (Exception)
+            {
+
+                averageRating = 0;
+            }
+            
             return averageRating;
         }
 
