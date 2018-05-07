@@ -7,7 +7,7 @@
 <h2>AddRestaurant</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AddRestaurant", "Restaurant", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
@@ -88,7 +88,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "AllRestaurants")
 </div>
 
 @section Scripts {

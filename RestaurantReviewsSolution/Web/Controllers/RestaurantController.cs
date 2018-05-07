@@ -37,6 +37,19 @@ namespace Web.Controllers
             return View();
         }
 
+        [Route("Restaurant/Add")]
+        [HttpPost]
+        public ActionResult AddRestaurant(WebRestaurants add)
+        {
+            if (!ModelState.IsValid) return View(add);
+
+            var restaurant = _mapper.Map<Restaurant>(add);
+
+            _restServ.AddRest(restaurant);
+
+            return RedirectToAction("AllRestaurants");
+        }
+
         // GET: Restaurant
         public ActionResult Index()
         {
