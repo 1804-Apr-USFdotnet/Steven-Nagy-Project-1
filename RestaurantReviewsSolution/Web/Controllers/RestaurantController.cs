@@ -27,7 +27,7 @@ namespace Web.Controllers
         [HttpGet]
         public ActionResult AllRestaurants()
         {
-            logger.Info("Application started");
+            
             var viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.AllRests());
 
             return View(viewModel);
@@ -141,7 +141,7 @@ namespace Web.Controllers
         public ActionResult Index()
         {
 
-            
+            logger.Info("Application started");
             return RedirectToAction("AllRestaurants");
         }
     }

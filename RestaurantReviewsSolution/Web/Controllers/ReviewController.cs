@@ -43,7 +43,13 @@ namespace Web.Controllers
             var restaurant = _restServ.GetRestaurantByID(RestModelID);
             var review = _mapper.Map<Review>(addRev);
             review.RestID = restaurant.ID;
-            review.ID = restaurant.Reviews.Max(x => x.ID) + 1;
+            if (restaurant.Reviews.Count>0) {
+                review.ID = restaurant.Reviews.Max(x => x.ID) + 1;
+            }
+            else
+            {
+                review.ID = 1;
+            }
 
             _revServ.AddRev(restaurant,review);
 

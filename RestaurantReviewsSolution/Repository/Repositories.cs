@@ -23,6 +23,13 @@ namespace Repository
 
         public void DeleteRestaurant(Restaurant rest)
         {
+            Restaurant checkID = _repoContext.Restaurants.Find(rest.ID);
+            foreach (var item in rest.Reviews.ToList())
+            {
+                rest.Reviews.Remove(item);
+                _repoContext.Entry(rest).CurrentValues.SetValues(rest);
+                _repoContext.SaveChanges();
+            }
             _repoContext.Restaurants.Remove(rest);
             _repoContext.SaveChanges();
         }
