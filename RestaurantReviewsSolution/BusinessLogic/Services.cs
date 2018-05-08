@@ -110,6 +110,11 @@ namespace BusinessLogic
             _reviewRepo.DeleteReview(rest, rev);
         }
 
+        public void UpdateRev(Restaurant rest, Review rev)
+        {
+            _reviewRepo.ModifyReview(rest, rev);
+        }
+
         public List<Review> GetAllRestReviews(Restaurant rest)
         {
             return _reviewRepo.GetAllReviewsByRestID(rest.ID).ToList();

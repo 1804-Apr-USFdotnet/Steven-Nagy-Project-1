@@ -163,10 +163,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\WebRestaurants.cs" />
+    <Compile Include="Models\WebReview.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +255,12 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Restaurant\AddRestaurant.cshtml" />
     <Content Include="Views\Restaurant\Index.cshtml" />
+    <Content Include="Views\Restaurant\EditRestaurant.cshtml" />
+    <Content Include="Views\Restaurant\SearchRestaurants.cshtml" />
+    <Content Include="Views\Restaurant\Top3Restaurants.cshtml" />
+    <Content Include="Views\Restaurant\DetailsRestaurants.cshtml" />
+    <Content Include="Views\Review\AddReview.cshtml" />
+    <Content Include="Views\Review\EditReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

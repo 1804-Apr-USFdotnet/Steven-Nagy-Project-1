@@ -1,0 +1,108 @@
+﻿@model Web.Models.WebRestaurants
+
+@{
+    ViewBag.Title = "DetailsRestaurants";
+}
+
+<h2>DetailsRestaurants</h2>
+
+<p>
+    @Html.ActionLink("Return to Main List", "AllRestaurants")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.restName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.restAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.locality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.latitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.longitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.zipcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cuisines)
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.restName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.restAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.locality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.latitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.longitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.zipcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => modelItem.cuisines)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditRestaurant", new { id = Model.ID }) |
+            @Html.ActionLink("Delete", "DeleteRestaurant", new { id = Model.ID })
+        </td>
+    </tr>
+</table>
+<br />
+<p>
+    @Html.ActionLink("Add your own review", "AddReview","Review", new { id = Model.ID },null)
+</p>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            Reviewer Name
+        </th>
+        <th>
+            Rating
+        </th>
+        <th>
+            Review Body
+        </th>
+    </tr>
+    @foreach (var item in Model.Reviews)
+    {
+        <tr>
+            <td><p>@item.reviewer</p></td>
+            <td>
+                <p>@item.rating</p>
+            </td>
+            <td>
+                <div class="content">
+                    @item.reviewBody
+                </div>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditReview", "Review", new { restId = item.RestID, revId = item.ID }, null) |
+                @Html.ActionLink("Delete", "DeleteReview", "Review",new { restId = item.RestID,revId =item.ID },null)
+            </td>
+        </tr>
+
+    }
+</table>
+

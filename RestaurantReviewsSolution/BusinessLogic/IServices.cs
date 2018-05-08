@@ -25,5 +25,6 @@ namespace BusinessLogic
         Review GetReviewByRestAndID(Restaurant rest, int ID);
         void AddRev(Restaurant rest, Review rev);
         void DeleteRev(Restaurant rest, Review rev);
+        void UpdateRev(Restaurant rest, Review rev);
     }
 }

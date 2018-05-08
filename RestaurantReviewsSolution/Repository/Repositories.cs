@@ -40,7 +40,7 @@ namespace Repository
         public void ModifyRestaurant(Restaurant rest)
         {
             Restaurant checkID = _repoContext.Restaurants.Find(rest.ID);
-            _repoContext.Entry(checkID).CurrentValues.SetValues(checkID);
+            _repoContext.Entry(checkID).CurrentValues.SetValues(rest);
             _repoContext.SaveChanges();
         }
 
@@ -60,15 +60,26 @@ namespace Repository
 
         public void AddReview(Restaurant rest, Review rev)
         {
+            Restaurant checkID = _repoContext.Restaurants.Find(rest.ID);
             rest.Reviews.Add(rev);
-            _repoContext.Restaurants.Add(rest);
+            _repoContext.Entry(checkID).CurrentValues.SetValues(rest);
             _repoContext.SaveChanges();
         }
 
         public void DeleteReview(Restaurant rest, Review rev)
         {
+            Restaurant checkID = _repoContext.Restaurants.Find(rest.ID);
             rest.Reviews.Remove(rev);
-            _repoContext.Restaurants.Add(rest);
+            _repoContext.Entry(checkID).CurrentValues.SetValues(rest);
+            _repoContext.SaveChanges();
+        }
+
+        public void ModifyReview(Restaurant rest, Review rev)
+        {
+            Review checkReview = GetById(rest.ID,rev.ID);
+            Restaurant checkRest = _repoContext.Restaurants.Find(rest.ID);
+            _repoContext.Entry(checkReview).CurrentValues.SetValues(rev);
+            _repoContext.Entry(checkRest).CurrentValues.SetValues(rest);
             _repoContext.SaveChanges();
         }
 

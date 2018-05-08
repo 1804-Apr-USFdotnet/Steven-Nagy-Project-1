@@ -1,23 +1,14 @@
 ﻿@model IEnumerable<Web.Models.WebRestaurants>
 
 @{
-    ViewBag.Title = "AllRestaurants";
+    ViewBag.Title = "Top3Restaurants";
 }
 
-<h2>AllRestaurants</h2>
+<h2>Top3Restaurants</h2>
 
 <p>
-    @Html.ActionLink("Create New", "AddRestaurant")
+    @Html.ActionLink("Return to Main List", "AllRestaurants")
 </p>
-<p>
-    @Html.ActionLink("Top 3 Restaurants", "Top3Restaurants")
-</p>
-@using (Html.BeginForm("SearchRestaurants", "Restaurant", FormMethod.Get))
-{ 
-<input type="text" name="id"/>
-<input type="submit" value="Search"/>
-}
-
 <table class="table">
     <tr>
         <th>
@@ -47,8 +38,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model)
-{
+@foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.restName)
@@ -75,9 +65,9 @@
             @Html.DisplayFor(modelItem => item.cuisines)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditRestaurant", new { id = item.ID }) |
-            @Html.ActionLink("Details", "DetailsRestaurants", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "DeleteRestaurant", new { id = item.ID })
+            @Html.ActionLink("Edit", "EditRestaurant", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "DeleteRestaurant", new { id=item.ID })
         </td>
     </tr>
 }

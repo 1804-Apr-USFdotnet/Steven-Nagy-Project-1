@@ -24,6 +24,7 @@ namespace Repository
         IEnumerable<Review> GetAllReviewsByRestID(int id);
         void AddReview(Restaurant rest, Review rev);
         void DeleteReview(Restaurant rest, Review rev);
+        void ModifyReview(Restaurant rest, Review rev);
         void SaveReviews();
     }
 }

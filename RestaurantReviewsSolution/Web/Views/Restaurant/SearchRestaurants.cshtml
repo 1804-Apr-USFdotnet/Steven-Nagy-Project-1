@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Web.Models.WebRestaurants>
+
+@{
+    ViewBag.Title = "SearchRestaurants";
+}
+
+<h2>SearchRestaurants</h2>
+
+<p>
+    @Html.ActionLink("Return to Main List", "AllRestaurants")
+</p>
+@using (Html.BeginForm("SearchRestaurants", "Restaurant", FormMethod.Get))
+{
+    <input type="text" name="id" />
+    <input type="submit" value="Search" />
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.restName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.restAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.locality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.latitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.longitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.zipcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cuisines)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.restName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.restAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.locality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.city)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zipcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cuisines)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditRestaurant", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "DeleteRestaurant", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

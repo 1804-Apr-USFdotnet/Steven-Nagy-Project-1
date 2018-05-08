@@ -29,6 +29,51 @@ namespace Web.Controllers
 
             return View(viewModel);
         }
+        [Route("Restaurant/Details/{id:int}")]
+        [HttpGet]
+        public ActionResult DetailsRestaurants(int id)
+        {
+            var viewModel = _mapper.Map<WebRestaurants>(_restServ.GetRestaurantByID(id));
+
+            return View(viewModel);
+        }
+
+        [Route("Restaurant/Search")]
+        [HttpGet]
+        public ActionResult SearchRestaurants(string id)
+        {
+            IEnumerable<WebRestaurants> viewModel;
+            if (id == null) { viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.AllRests()); }
+            else
+            {
+                viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.SearchAll(id));
+            }
+
+            return View(viewModel);
+        }
+
+        [Route("Restaurant/SortBy")]
+        [HttpGet]
+        public ActionResult SortByRestaurants(string id)
+        {
+            IEnumerable<WebRestaurants> viewModel;
+            if (id == null) { viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.AllRests()); }
+            else
+            {
+                viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.SearchAll(id));
+            }
+
+            return View(viewModel);
+        }
+
+        [Route("Restaurant/Top3")]
+        [HttpGet]
+        public ActionResult Top3Restaurants()
+        {
+            var viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.TopThreeRests()); 
+
+            return View(viewModel);
+        }
 
         [Route("Restaurant/Add")]
         [HttpGet]
@@ -46,6 +91,44 @@ namespace Web.Controllers
             var restaurant = _mapper.Map<Restaurant>(add);
 
             _restServ.AddRest(restaurant);
+
+            return RedirectToAction("AllRestaurants");
+        }
+
+        [Route("Restaurant/Edit/{id:int}")]
+        [HttpGet]
+        public ActionResult EditRestaurant(int id)
+        {
+            var viewModel = _mapper.Map<WebRestaurants>(_restServ.GetRestaurantByID(id));
+
+            return View(viewModel);
+        }
+
+        [Route("Restaurant/Edit/{id:int}")]
+        [HttpPost]
+        public ActionResult EditRestaurant(WebRestaurants mod)
+        {
+            try
+            {
+                Restaurant newModel = new Restaurant();
+                _mapper.Map<WebRestaurants, Restaurant>(mod, newModel);
+                _restServ.UpdateRest(newModel);
+                
+
+                return RedirectToAction("AllRestaurants");
+            }
+            catch
+            {
+                return RedirectToAction("AllRestaurants");
+            }
+        }
+
+        [Route("Restaurant/Delete/{id:int}")]
+        [HttpGet]
+        public ActionResult DeleteRestaurant(int id)
+        {
+            var viewModel = _restServ.GetRestaurantByID(id);
+            _restServ.DeleteRest(viewModel);
 
             return RedirectToAction("AllRestaurants");
         }
