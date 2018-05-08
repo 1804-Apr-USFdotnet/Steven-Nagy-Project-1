@@ -60,7 +60,7 @@ namespace Web.Controllers
             if (id == null) { viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.AllRests()); }
             else
             {
-                viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.SearchAll(id));
+                viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.SortRestaurants(id));
             }
 
             return View(viewModel);

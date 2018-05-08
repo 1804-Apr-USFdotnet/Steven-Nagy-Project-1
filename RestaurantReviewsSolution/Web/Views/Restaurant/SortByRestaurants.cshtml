@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<Web.Models.WebRestaurants>
 
 @{
-    ViewBag.Title = "AllRestaurants";
+    ViewBag.Title = "SortByRestaurants";
 }
 
-<h2>AllRestaurants</h2>
+<h2>SortByRestaurants</h2>
 
 <p>
     @Html.ActionLink("Create New", "AddRestaurant")
@@ -28,7 +28,6 @@
     </select>
     <input type="submit" value="Sort By" />
 }
-
 <table class="table">
     <tr>
         <th>
