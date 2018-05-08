@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Web.Models;
 using RestaurantReviewsModels;
+using NLog;
 
 namespace Web.Controllers
 {
@@ -14,7 +15,8 @@ namespace Web.Controllers
     {
         private readonly IRestServ _restServ;
         private readonly IMapper _mapper;
-        
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public RestaurantController(IRestServ restServ, IMapper mapper)
         {
             _restServ = restServ;
@@ -25,10 +27,12 @@ namespace Web.Controllers
         [HttpGet]
         public ActionResult AllRestaurants()
         {
+            logger.Info("Application started");
             var viewModel = _mapper.Map<IEnumerable<WebRestaurants>>(_restServ.AllRests());
 
             return View(viewModel);
         }
+
         [Route("Restaurant/Details/{id:int}")]
         [HttpGet]
         public ActionResult DetailsRestaurants(int id)
@@ -136,7 +140,9 @@ namespace Web.Controllers
         // GET: Restaurant
         public ActionResult Index()
         {
-            return View();
+
+            
+            return RedirectToAction("AllRestaurants");
         }
     }
 }
